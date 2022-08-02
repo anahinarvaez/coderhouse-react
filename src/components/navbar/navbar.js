@@ -1,4 +1,5 @@
 import 'materialize-css/dist/css/materialize.min.css'
+import CartWidget from './CartWidget';
 
 function NavBar() {
   return (
@@ -9,7 +10,7 @@ function NavBar() {
         <li><a href="#">Hamburguesas</a></li>
         <li><a href="#">Quienes Somos</a></li>
         <li><a href="#">Contacto</a></li>
-        <li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
+        <li><CartWidget></CartWidget></li>
       </ul>
     </div>
   </nav>
