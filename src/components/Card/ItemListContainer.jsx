@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import productos from "../data/data";
+import {productos} from "../data/data";
 import ItemList from "./ItemList";
 
 function ItemListContainer(props) {
@@ -17,7 +17,7 @@ function ItemListContainer(props) {
 
 function getProductos() {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(productos), 0);
+    setTimeout(() => resolve(productos), 2000);
   });
 }
 
