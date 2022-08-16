@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "description": "Clasica"
+    },
+    {
+        "id": "2",
+        "description": "Gourmet"
+    },
+    {
+        "id": "3",
+        "description": "Deluxe"
+    },
+    {
+        "id": "4",
+        "description": "Vegetariana"
+    }
+]
