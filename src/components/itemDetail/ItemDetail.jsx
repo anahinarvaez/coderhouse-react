@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import ItemCount from "../counter/itemCount";
+import Swal from "sweetalert2";
+import { NavLink } from "react-router-dom";
 
 const ItemDetail = ({ producto }) => {
+  const [counterData, setCounterData] = useState(0);
+
+  const onAdd = (quantityToAdd) => {
+        setCounterData(quantityToAdd);
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `fue agregado al carrito ${quantityToAdd} ${quantityToAdd > 1 ? 'items' : 'item'}`,
+            showConfirmButton: false,
+            timer: 1500
+        })
+  }
+
+
   return (
 <div class="row">
+<h3>items agregados al carrito: {counterData}</h3>
 <div class="col s12 m6 l2">
   <div class="card">
     <div class="card-image">
@@ -16,6 +34,8 @@ const ItemDetail = ({ producto }) => {
     </div>
   </div>
 </div>
+<ItemCount stock={30} initial={1} onAdd={onAdd}></ItemCount>
+<button><NavLink to={"/cart"}>Comprar Ahora</NavLink></button>
 </div>
   );
 };
