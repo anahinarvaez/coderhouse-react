@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./itemCounter.css"
 
 function ItemCount({ stock, initial, onAdd }) {
     const [clicks, setClicks] = useState(initial);
@@ -13,14 +14,32 @@ function ItemCount({ stock, initial, onAdd }) {
     }
 
     return (
-        <div>
-            <h3>Item Counter</h3>
-            <button onClick={handlerDecrement}>Restar</button>
-            <h3>Clicks: {clicks}</h3>
-            <button onClick={handlerIncrement}>Sumar</button>
-            <br />
-            <button onClick={() => onAdd(clicks)}>Agregar al carrito</button>
+        <div className="col center counter">
+
+            <div className="row">
+                <div className="col l3">
+                <a class="btn-floating btn-large waves-effect waves-light red" onClick={handlerDecrement}><i class="material-icons">remove</i></a>
+                   
+                </div>
+                <div className="col l3">
+               
+                <a class="btn-floating btn-large waves-effect blue darken-5 disabled" >{clicks}</a>
+                </div>
+                
+                <div className="col l3">
+                    <a class="btn-floating btn-large waves-effect waves-light red" onClick={handlerIncrement}><i class="material-icons">add</i></a>
+                </div>
+
+                <div className="col l3">
+                <a class="waves-effect waves-light btn-large blue darken-5" style={{ width: "100px" }} onClick={() => onAdd(clicks)}><i class="material-icons">add_shopping_cart</i></a>
+                </div>
+                
+                
+            </div>
+            
+            
         </div>
+
     );
 }
 
