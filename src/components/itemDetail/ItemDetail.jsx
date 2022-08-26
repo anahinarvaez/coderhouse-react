@@ -7,11 +7,12 @@ import { cartContext } from "../../context/CartProvider";
 
 
 const ItemDetail = ({ producto }) => {
-  const [counterData, setCounterData] = useState(0);
-  const { addItem, cartSize } = useContext(cartContext);
+
+  const { addItem, items } = useContext(cartContext);
+  const [ cantidadSolicitada, setCantidadSolicitada ] = useState(producto.quantity || 0);
 
   const onAdd = (quantityToAdd) => {
-    setCounterData(quantityToAdd);
+    
     Swal.fire({
       position: 'top-end',
       icon: 'success',
@@ -20,7 +21,9 @@ const ItemDetail = ({ producto }) => {
       timer: 1500
     })
 
-    addItem(producto, quantityToAdd)
+
+    addItem(producto, quantityToAdd);
+    setCantidadSolicitada(producto.quantity);
   }
 
 
@@ -60,12 +63,21 @@ const ItemDetail = ({ producto }) => {
             <h5><b>${producto.price}</b></h5>
           </div>
           <div class="divider"></div>
-          <div class="section">
-            <ItemCount stock={30} initial={1} onAdd={onAdd}></ItemCount>
-          </div>
+          <div class="section center">
 
-          <div class="section">
-            {cartSize > 0 && <NavLink to={"/cart"}><a className="waves-effect waves-light btn-large blue darken-5">Terminar mi compra</a></NavLink>}
+            {cantidadSolicitada > 0 && <h5>Cantidad Solicitada: {cantidadSolicitada}</h5>}
+            <br></br>
+            
+            {producto.stock > 0 ?  <ItemCount stock={producto.stock} initial={1} onAdd={onAdd}></ItemCount> : <div><h3>Ups :(</h3><p> No tenemos mas de estas hamburguesas. Te invitamos a ver las otras categorias :) </p></div>}
+ 
+             
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+
+          <div class="section center">
+            {cantidadSolicitada > 0 && <NavLink to={"/cart"}><a className="waves-effect waves-light btn-large blue darken-5">Terminar mi compra</a></NavLink>}
           </div>
         </div>
       </div>

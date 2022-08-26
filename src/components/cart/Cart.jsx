@@ -1,7 +1,9 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 function Cart({items, removeFromCart}) {
 
-    const precioTotal = items.map(item => item.price).reduce((a,b) => a + b, 0);
+    const precioTotal = items.map(item => item.price * item.quantity).reduce((a,b) => a + b, 0);
+    
 
     return(
         <div>
@@ -19,13 +21,13 @@ function Cart({items, removeFromCart}) {
             {
                 items.map(item =>
                     <tr>
-                        <td>{item.producto.title}</td>
-                        <td>{item.producto.description}</td>
+                        <td><NavLink to={`/items/${item.id}`}>{item.title}</NavLink></td>
+                        <td>{item.description}</td>
                         <td>{item.quantity}</td>
-                        <td>{item.producto.price}</td>
-                        <td><b>{item.price}</b></td>
+                        <td>{item.price}</td>
+                        <td><b>{item.price * item.quantity}</b></td>
                         <td>
-                            <button className="waves-effect waves-light btn-large red darken-4" onClick={() => removeFromCart(item.producto.id)}>
+                            <button className="waves-effect waves-light btn-large red darken-4" onClick={() => removeFromCart(item.id)}>
                                 <i class="material-icons">remove_shopping_cart</i>
                             </button>
                         </td>

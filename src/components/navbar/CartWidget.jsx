@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
+import { NavLink } from 'react-router-dom';
 import { cartContext } from '../../context/CartProvider'
 function CartWidget(props) {
 
-    const {cartSize} = useContext(cartContext);
+    const {items} = useContext(cartContext);
+    const itemsTotal = items.map(item => item.quantity ).reduce((a, b) => a+b , 0)
 
     return(
         <React.Fragment>
-            { cartSize > 0 && <ul><li><a href="#"><i class="material-icons">shopping_cart</i></a></li><li><span>({cartSize})</span></li></ul>}
+            { items.length > 0 && <NavLink to="/cart"><ul><li><a href="#"><i class="material-icons">shopping_cart</i></a></li><li><span>({itemsTotal})</span></li></ul></NavLink>}
         </React.Fragment>
     )
 }

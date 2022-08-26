@@ -7,11 +7,9 @@ import EmptyCart from "../../components/cart/EmptyCart";
 
 const CartContainer = () => {
 
-    const { getAll, removeItem, cartSize } = useContext(cartContext);
-    const items = getAll();
+    const { removeItem, items } = useContext(cartContext);
 
-
-    return (cartSize > 0 ? <Cart items={items} removeFromCart={ removeItem }/> : <EmptyCart></EmptyCart>);
+    return (items.length > 0 ? <Cart items={ items } removeFromCart={ removeItem }/> : <EmptyCart></EmptyCart>);
 }
 
 

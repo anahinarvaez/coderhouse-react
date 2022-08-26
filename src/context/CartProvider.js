@@ -9,37 +9,45 @@ export const CartProvider = ({ defaultValue = [], children }) => {
     const [pedido, setPedido] = useState(defaultValue);
 
     const isInCart = (producto) => {
-        return pedido.some(itemInCart => itemInCart.producto.id === producto.id);
+        return pedido.some(itemInCart => itemInCart.id === producto.id);
     }
 
     const addItem = (producto, quantity) => {
         if (isInCart(producto)) {
-            setPedido(pedido.map(itemInCart => {
-                if (itemInCart.producto.id === producto.id) {
-                    itemInCart.quantity = itemInCart.quantity + quantity;
-                    itemInCart.price = itemInCart.quantity * producto.price;
-                }
-
-                return itemInCart;
-            }))
+            console.log("Item actualizado en el carrito", producto, quantity)
+            
+            setPedido((pedido) => 
+                pedido.map(item => { 
+                    if(item.id === producto.id){
+                        item.quantity = item.quantity + quantity;
+                    }
+                    return item;
+                })
+            )
         } else {
-            setPedido([...pedido, { producto: producto, quantity: quantity, price: quantity * producto.price }]);
+            console.log("producto agregado al carrito", producto, quantity)
+            producto.quantity = quantity;
+            setPedido([...pedido, producto]);
         }
+        
+        producto.stock = producto.stock - quantity;
     }
 
     const removeItem = (productoId) => {
-        setPedido(pedido.filter(itemInCart => itemInCart.producto.id !== productoId));
+        
+        var producto = pedido.find(producto => producto.id === productoId);
+        setPedido(pedido.filter(itemInCart => itemInCart.id !== productoId));
+        //restauro stock
+        producto.stock = producto.stock + producto.quantity;
+        //seteo en 0 la cantidad solicitada
+        producto.quantity = 0
     }
 
     const clearItems = () => {
         setPedido([]);
     }
 
-    const getAll = () => {
-        return pedido;
-    }
-
-    return (<cartContext.Provider value={{ addItem, removeItem, clearItems, getAll, cartSize: pedido.length }}>
+    return (<cartContext.Provider value={{ addItem, removeItem, clearItems, items: pedido }}>
         {children}
     </cartContext.Provider>);
 
