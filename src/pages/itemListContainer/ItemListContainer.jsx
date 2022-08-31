@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import productos from '../../data/productos.json'
 import ItemList from "../../components/itemList/ItemList";
 import { useParams } from 'react-router-dom'
 import Spinner from "../../components/spinner/spinner";
+import { collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
 
 
 function ItemListContainer() {
@@ -11,21 +11,17 @@ function ItemListContainer() {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    getProductos(categoryId).then((respuesta) => setData(respuesta));
-  }, [categoryId]);
-
-  const getProductos= (categoryId) => {
+    const db = getFirestore();  
+    const itemsCollection = categoryId ? query(collection(db, "items"), where("category", "==", categoryId)) : collection(db, "items");
     setLoading(true);
     setData([]);
-    let productosByCaterory = categoryId ? productos.filter(producto => producto.category === categoryId) : productos;
-  
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(productosByCaterory);
-        setLoading(false);
-      }, 2000);
-    });
-  }
+    getDocs(itemsCollection).then((snapshot) => {
+      setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()})));
+      setLoading(false);
+    })
+    
+  }, [categoryId]);
+
 
   return (
     <div>

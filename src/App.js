@@ -18,6 +18,7 @@ function App() {
           <Route path='/cart' element={<CartContainer></CartContainer>}></Route>
           <Route path='/categories/:categoryId' element={<ItemListContainer></ItemListContainer>}></Route>
           <Route path='/items/:itemId' element={<ItemDetailContainer></ItemDetailContainer>}></Route>
+          <Route path='/items/notFound' element={<div><h1>Ups. No tenemos la hamburguesa que busca.</h1><h2>Pruebe seleccionando una de las hamburguesas de nuestras espectaculares categorias.</h2></div>}></Route>
           <Route path='*' element={<ItemListContainer></ItemListContainer>}></Route>
         </Routes>
         </CartProvider>
