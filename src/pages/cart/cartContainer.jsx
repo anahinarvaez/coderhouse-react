@@ -7,9 +7,9 @@ import EmptyCart from "../../components/cart/EmptyCart";
 
 const CartContainer = () => {
 
-    const { removeItem, items } = useContext(cartContext);
+    const { removeItem, items, clearItems } = useContext(cartContext);
 
-    return (items.length > 0 ? <Cart items={ items } removeFromCart={ removeItem }/> : <EmptyCart></EmptyCart>);
+    return (items.length > 0 ? <Cart items={ items } removeFromCart={ removeItem } vaciarCarrito={clearItems}/> : <EmptyCart></EmptyCart>);
 }
 
 
