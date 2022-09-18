@@ -14,8 +14,6 @@ export const CartProvider = ({ defaultValue = [], children }) => {
 
     const addItem = (producto, quantity) => {
         if (isInCart(producto)) {
-            console.log("Item actualizado en el carrito", producto, quantity)
-            
             setPedido((pedido) => 
                 pedido.map(item => { 
                     if(item.id === producto.id){
@@ -25,7 +23,6 @@ export const CartProvider = ({ defaultValue = [], children }) => {
                 })
             )
         } else {
-            console.log("producto agregado al carrito", producto, quantity)
             producto.quantity = quantity;
             setPedido([...pedido, producto]);
         }
@@ -37,9 +34,7 @@ export const CartProvider = ({ defaultValue = [], children }) => {
         
         var producto = pedido.find(producto => producto.id === productoId);
         setPedido(pedido.filter(itemInCart => itemInCart.id !== productoId));
-        //restauro stock
         producto.stock = producto.stock + producto.quantity;
-        //seteo en 0 la cantidad solicitada
         producto.quantity = 0
     }
 

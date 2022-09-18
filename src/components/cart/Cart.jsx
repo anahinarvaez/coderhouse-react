@@ -1,11 +1,12 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { addDoc, collection, getFirestore, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+
 
 
 function Cart({ items, removeFromCart, vaciarCarrito }) {
-
+    const navigate = useNavigate();
     const precioTotal = items.map(item => item.price * item.quantity).reduce((a, b) => a + b, 0);
 
 
@@ -31,7 +32,7 @@ function Cart({ items, removeFromCart, vaciarCarrito }) {
                 return { name: nombre, phone: telefono, email: email }
             }
         }).then((result) => {
-            submitOrder({name: result.value.name, phone: result.value.phone, email: result.value.email});
+            submitOrder({ name: result.value.name, phone: result.value.phone, email: result.value.email });
         })
     }
 
@@ -72,13 +73,20 @@ function Cart({ items, removeFromCart, vaciarCarrito }) {
 
         const db = getFirestore();
         const ordersCollection = collection(db, "orders");
-        addDoc(ordersCollection, order).then(({ id }) => Swal.fire(
-            'Orden enviada :)',
-            `Su orden es la ${id}`,
-            'success'
-        ));
+        addDoc(ordersCollection, order).then(({ id }) => {
 
-        vaciarCarrito();
+            Swal.fire(
+                'Orden enviada :)',
+                `Su orden es la ${id}`,
+                'success'
+            );
+            navigate("/");
+            vaciarCarrito();
+        }
+
+
+        );
+
     }
 
     return (

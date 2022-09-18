@@ -1,0 +1,9 @@
+.active{
+    transition: background-color .3s;
+    font-size: 1rem;
+    color: black;
+    display: block;
+    padding: 0 15px;
+    cursor: pointer;
+    background-color: rgb(240, 9, 86);
+}
