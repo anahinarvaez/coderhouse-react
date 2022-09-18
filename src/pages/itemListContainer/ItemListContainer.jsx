@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ItemList from "../../components/itemList/ItemList";
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import Spinner from "../../components/spinner/spinner";
-import { collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
-
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 
 function ItemListContainer() {
   const [loading, setLoading] = useState();
@@ -11,17 +16,17 @@ function ItemListContainer() {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    const db = getFirestore();  
-    const itemsCollection = categoryId ? query(collection(db, "items"), where("category", "==", categoryId)) : collection(db, "items");
+    const db = getFirestore();
+    const itemsCollection = categoryId
+      ? query(collection(db, "items"), where("category", "==", categoryId))
+      : collection(db, "items");
     setLoading(true);
     setData([]);
     getDocs(itemsCollection).then((snapshot) => {
-      setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()})));
+      setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
-    })
-    
+    });
   }, [categoryId]);
-
 
   return (
     <div>
@@ -29,7 +34,5 @@ function ItemListContainer() {
     </div>
   );
 }
-
-
 
 export default ItemListContainer;

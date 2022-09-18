@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -15,13 +15,13 @@ const firebaseConfig = {
   projectId: "coderhouse-react-a4b64",
   storageBucket: "coderhouse-react-a4b64.appspot.com",
   messagingSenderId: "283672414176",
-  appId: "1:283672414176:web:1d0df2adc782b34effcd85"
+  appId: "1:283672414176:web:1d0df2adc782b34effcd85",
 };
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />

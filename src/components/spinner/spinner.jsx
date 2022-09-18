@@ -1,11 +1,11 @@
 import React from "react";
-import gif from './spinner.gif'
-import './spinner.css';
+import gif from "./spinner.gif";
+import "./spinner.css";
 
 const Spinner = () => {
   return (
     <div className="spinner">
-        <img  src={gif} alt="loading..." />
+      <img src={gif} alt="loading..." />
     </div>
   );
 };
